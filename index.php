@@ -18,7 +18,7 @@
 <li>Débiter le compte de X euros</li>
 <li>Effectuer un virement d'un compte à l'autre.</li>
 <br>On doit pouvoir :
-<li>Affichertoutes  les  informations  d'un(e)  titulaire  (dont  l'âge)  et  l'ensemble  des  comptes appartenant à celui(celle)-ci.</li>
+<li>Afficher toutes  les  informations  d'un(e)  titulaire  (dont  l'âge)  et  l'ensemble  des  comptes appartenant à celui(celle)-ci.</li>
 <li>Afficher  toutes  les  informations  d'un  compte  bancaire,  notamment  le  nom  /  prénom  du titulaire du compte.</li></p>
 
 <h2>Résultat</h2>
