@@ -1,14 +1,16 @@
 <?php
 
 class Compte_Bancaire{
-    private $libelle;
-    private $soldeInitial;
-    private $devise;
+    private string $libelle;
+    private float $soldeInitial;
+    private float $soldeActuel;
+    private string $devise;
     private Titulaire $titulaire;
 
     public function __construct($libelle, $soldeInitial, $devise, $titulaire) {
         $this->libelle = $libelle;
         $this->soldeInitial = $soldeInitial;
+        $this->soldeActuel = $soldeInitial;
         $this->devise = $devise;
         $this->titulaire = $titulaire;
         $this->titulaire->ajoutCompte($this);
@@ -22,6 +24,11 @@ class Compte_Bancaire{
         return $this->devise;
     }public function get_titulaire() {
         return $this->titulaire;
+    }
+
+    public function crediter(float $ajout){
+        $this->soldeActuel += $ajout;
+        return $this->soldeActuel;
     }
 
     // public function afficherCompte(){
