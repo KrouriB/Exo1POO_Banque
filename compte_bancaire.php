@@ -7,7 +7,7 @@ class Compte_Bancaire{
     private string $devise;
     private Titulaire $titulaire;
 
-    public function __construct($libelle, $soldeInitial, $devise, $titulaire) {
+    public function __construct(string $libelle,float $soldeInitial,string $devise,Titulaire $titulaire) {
         $this->libelle = $libelle;
         $this->soldeInitial = $soldeInitial;
         $this->soldeActuel = $soldeInitial;
@@ -22,28 +22,44 @@ class Compte_Bancaire{
         return $this->soldeInitial;
     }public function get_devise() {
         return $this->devise;
-    }public function get_titulaire() {
+    }public function getTitulaire() {
         return $this->titulaire;
+    }
+
+    public function __toString()
+    {
+        return "Libellé : ".$this->libelle."<br>Au solde Initial de : ".$this->soldeInitial." ".$this->devise."<br>Dont le solde est actuellement de : ".$this->soldeActuel." ".$this->devise."<br>";
     }
 
     public function crediter(float $ajout){
         $this->soldeActuel += $ajout;
+        echo "$ajout  $this->devise a bien été ajouter<br><br>";
+        return $this->soldeActuel;
+    }
+    public function debiter(float $ajout){
+        $this->soldeActuel -= $ajout;
+        echo "$ajout  $this->devise a bien été retirer<br><br>";
         return $this->soldeActuel;
     }
 
-    // public function afficherCompte(){
-    //     $display = "";
-    //     $display .= "Libellé : ";
-    //     $display .= $this->get_libelle();
-    //     $display .= "<br>";
-    //     $display .= "Au nom de ";
-    //     $display .= $this->titulaire->get_prenom();
-    //     $display .= " ";
-    //     $display .= $this->titulaire->get_nom();
-    //     $display .= "<br>";
-    //     $display .= "<br>";
-    //     echo $display;
-    // }
+    public function transfer(Compte_Bancaire $v2,float $ajout){
+        $this->crediter($ajout);
+        $v2->debiter($ajout);
+        echo "le transfère de $ajout $this->devise a bien eu lieu<br><br>";
+    }
+
+
+
+    public function afficherCompte(){
+        $display = $this;
+        $display .= "Au nom de ";
+        $display .= $this->titulaire->get_prenom();
+        $display .= " ";
+        $display .= $this->titulaire->get_nom();
+        $display .= "<br>";
+        $display .= "<br>";
+        echo $display;
+    }
 }
 
 ?>
