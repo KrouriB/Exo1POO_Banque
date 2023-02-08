@@ -2,16 +2,17 @@
 
 class Titulaire{
 
-    private $nom;
-    private $prenom;
-    private $dateNaissance;
-    private $ville;
+    private string $nom;
+    private string $prenom;
+    private Titulaire $titulaire;
+    private DateTime $laDateNaissance;
+    private string $ville;
     private array $comptes;
 
-    public function __construct($prenom, $nom, $dateNaissance, $ville){
+    public function __construct(string $prenom,string $nom,string $dateNaissance,string $ville){
         $this->prenom = $prenom;
         $this->nom = $nom;
-        $this->dateNaissance = $dateNaissance;
+        $this->laDateNaissance = new DateTime($dateNaissance);
         $this->ville = $ville;
         $this->comptes=[];
     }
@@ -25,29 +26,32 @@ class Titulaire{
     }public function get_nom() {
         return $this->nom;
     }public function get_dateNaissance() {
-        return $this->dateNaissance;
+        return $this->laDateNaissance;
     }public function get_ville() {
         return $this->ville;
+    }public function getTitulaire() {
+        return $this->titulaire;
+    }
+
+    public function age() {
+        $today = new DateTime();
+        $interval = date_diff($this->laDateNaissance, $today);
+        return $interval->format('%y ans');
+    }
+
+    public function __toString()
+    {
+        return "Information de ".$this->get_prenom()." ".$this->get_nom()."agé de ".$this->age();
     }
 
     public function afficherInfosTitulaire(){
-        $display = "";
-        $display .= "Information de ";
-        $display .= $this->get_prenom();
-        $display .= " ";
-        $display .= $this->get_nom();
-        $display .= "<br>";
-        $display .= "Né en ";
-        $display .= $this->get_dateNaissance();
-        $display .= "<br>";
-        $display .= "Vivant à ";
-        $display .= $this->get_ville();
-        $display .= "<br>";
+        $display = $this."<br>";
         foreach ($this->comptes as $unePersonne){
-            $display .= "Le compte :";
+            $display .= "Compte :";
             $display .= $unePersonne->get_libelle();
             $display .= "<br>";
         }
+        $display .= "<br>";
         echo $display;
     }
 
